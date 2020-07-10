@@ -25,6 +25,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+        
+    - name: Android Emulator
+      uses: vgaidarji/android-github-actions-emulator@v1.0.1    
+        
     # Runs test
     - name: Run tests
       run: ./gradlew test
