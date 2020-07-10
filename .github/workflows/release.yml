@@ -26,8 +26,8 @@ jobs:
       with:
         java-version: 1.8
         
-    - name: Android Emulator
-      uses: vgaidarji/android-github-actions-emulator@v1.0.1    
+    - name: Android Emulator (faruktoptas)
+      uses: faruktoptas/android-github-actions-emulator@1.1.0    
         
     # Runs test
     - name: Run tests
