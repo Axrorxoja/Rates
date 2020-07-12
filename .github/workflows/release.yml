@@ -105,6 +105,7 @@ jobs:
         token: ${{secrets.FIREBASE_TOKEN}}
         # Artifact to upload (.apk or .ipa)
         file: ${{ steps.apk-name.outputs.APK_NAME }}
+        groups:  testers
         # Distribution groups
         # Release notes visible on release page
 #         releaseNotes: don't use this build it's for test
