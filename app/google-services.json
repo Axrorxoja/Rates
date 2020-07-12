@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "892242297928",
+    "firebase_url": "https://rates-c97ad.firebaseio.com",
+    "project_id": "rates-c97ad",
+    "storage_bucket": "rates-c97ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892242297928:android:95575b9cb964d80b01c47d",
+        "android_client_info": {
+          "package_name": "com.example.currencylist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "892242297928-6dle2eiedi4e66trau1r2j3ao9grf4sr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoEhNehzwxu5mQwEzHBQ0vE9OSHYDrvRI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "892242297928-6dle2eiedi4e66trau1r2j3ao9grf4sr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
