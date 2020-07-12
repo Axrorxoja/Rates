@@ -1,4 +1,4 @@
-package com.example.currencylist.ui.list
+package com.example.currencylist.ui.list.adapter
 
 sealed class ItemState {
 

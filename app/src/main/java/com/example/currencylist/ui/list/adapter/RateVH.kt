@@ -1,4 +1,4 @@
-package com.example.currencylist.ui.list
+package com.example.currencylist.ui.list.adapter
 
 import android.annotation.SuppressLint
 import android.text.TextWatcher
@@ -12,7 +12,7 @@ import com.example.currencylist.R
 import com.example.currencylist.common.simple.SimpleTextWatcher
 import com.example.currencylist.common.toFloatOrZero
 import com.example.currencylist.common.value
-import com.example.currencylist.models.RateItem
+import com.example.currencylist.data.local.Rate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_rate.*
 import timber.log.Timber
@@ -31,8 +31,13 @@ class RateVH(
     private fun setUpWatcher() {
         val watcher = SimpleTextWatcher {
             val amount = et_amount.value.toFloatOrZero()
-            val state = if (adapterPosition == 0) ItemState.PrimaryItemValueChanged(amount)
-            else ItemState.ValueChanged(adapterPosition, amount)
+            val state = if (adapterPosition == 0) ItemState.PrimaryItemValueChanged(
+                amount
+            )
+            else ItemState.ValueChanged(
+                adapterPosition,
+                amount
+            )
             Timber.d("setUpWatcher $adapterPosition $amount $state")
             liveLastHoldItemPosition.value = state
         }
@@ -42,7 +47,10 @@ class RateVH(
 
     private fun setUpLongClick() {
         containerView.setOnLongClickListener {
-            val state = ItemState.PrimaryItemChanged(adapterPosition)
+            val state =
+                ItemState.PrimaryItemChanged(
+                    adapterPosition
+                )
             Timber.d("setUpLongClick $adapterPosition $state")
             liveLastHoldItemPosition.value = state
             true
@@ -50,7 +58,7 @@ class RateVH(
     }
 
     @SuppressLint("SetTextI18n")
-    fun onBind(item: RateItem) {
+    fun onBind(item: Rate) {
         Timber.d("onBind $item")
         et_amount.setText("" + item.amount)
     }
@@ -63,7 +71,11 @@ class RateVH(
         ): RateVH {
             val view =
                 LayoutInflater.from(parent.context).inflate(R.layout.item_rate, parent, false)
-            return RateVH(view, liveLastHoldItemPosition, watcherMap)
+            return RateVH(
+                view,
+                liveLastHoldItemPosition,
+                watcherMap
+            )
         }
     }
 }

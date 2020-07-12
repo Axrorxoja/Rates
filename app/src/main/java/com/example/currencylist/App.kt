@@ -1,9 +1,11 @@
 package com.example.currencylist
 
 import android.app.Application
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import timber.log.Timber
 
-class App : Application() {
+class App : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
@@ -15,4 +17,7 @@ class App : Application() {
             Timber.plant(Timber.DebugTree())
         }
     }
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication>? =
+      null
 }
