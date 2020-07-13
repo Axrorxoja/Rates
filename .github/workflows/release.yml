@@ -112,4 +112,4 @@ jobs:
         # Release notes visible on release page
         #releaseNotesFile: # optional
         # Flag that can included to print verbose log output.
-#         debug: true
+        debug: true
