@@ -1,4 +1,4 @@
-package com.example.currencylist.ui.list
+package com.example.currencylist.ui.list.adapter
 
 import android.text.TextWatcher
 import android.view.ViewGroup
@@ -6,9 +6,11 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ListAdapter
-import com.example.currencylist.models.RateItem
+import com.example.currencylist.data.local.RateItem
 
-class RateAdapter : ListAdapter<RateItem, RateVH>(RateDiffer()) {
+class RateAdapter : ListAdapter<RateItem, RateVH>(
+    RateDiffer()
+) {
 
     private val _liveLastHoldItemPosition = MutableLiveData<ItemState>()
     val liveLastHoldItemPosition: LiveData<ItemState>
@@ -18,7 +20,11 @@ class RateAdapter : ListAdapter<RateItem, RateVH>(RateDiffer()) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ) = RateVH.create(parent, _liveLastHoldItemPosition, watcherMap)
+    ) = RateVH.create(
+        parent,
+        _liveLastHoldItemPosition,
+        watcherMap
+    )
 
     override fun onBindViewHolder(
         holder: RateVH,

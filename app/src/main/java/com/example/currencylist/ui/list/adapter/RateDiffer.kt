@@ -1,7 +1,8 @@
-package com.example.currencylist.ui.list
+package com.example.currencylist.ui.list.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.currencylist.models.RateItem
+import com.example.currencylist.data.local.RateItem
+
 
 class RateDiffer : DiffUtil.ItemCallback<RateItem>() {
     override fun areItemsTheSame(
