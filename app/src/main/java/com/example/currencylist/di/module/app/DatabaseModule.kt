@@ -13,7 +13,7 @@ class DatabaseModule {
     @AppScope
     @Provides
     fun provideDao(context: Context): RateDao {
-        val db = Room.databaseBuilder(context, InMemoryDB::class.java, "db.sqlite")
+        val db = Room.inMemoryDatabaseBuilder(context, InMemoryDB::class.java)
             .build()
         return db.rateDao
     }

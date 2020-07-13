@@ -40,14 +40,13 @@
 
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_amount"
+        android:id="@+id/et_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        android:ems="4"
         android:gravity="end"
         android:inputType="numberDecimal"
         android:textColor="@color/primary_color"

@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "rates")
 data class RateItem(
+    @PrimaryKey
     val code: String,
     val rate: Float,
-    val amount: Float = 0F,
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0
+    var amount: Float = 1F,
+    var modifiedTime: Long = 0
 )

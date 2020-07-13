@@ -8,9 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ListAdapter
 import com.example.currencylist.data.local.RateItem
 
-class RateAdapter : ListAdapter<RateItem, RateVH>(
-    RateDiffer()
-) {
+class RateAdapter : ListAdapter<RateItem, RateVH>(RateDiffer()) {
 
     private val _liveLastHoldItemPosition = MutableLiveData<ItemState>()
     val liveLastHoldItemPosition: LiveData<ItemState>

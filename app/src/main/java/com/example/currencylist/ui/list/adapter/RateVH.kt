@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencylist.R
+import com.example.currencylist.common.setTextQuietly
 import com.example.currencylist.common.simple.SimpleTextWatcher
 import com.example.currencylist.common.toFloatOrZero
 import com.example.currencylist.common.value
@@ -23,6 +24,8 @@ class RateVH(
     private val watcherMap: HashMap<AppCompatEditText, TextWatcher>
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
+    private lateinit var item: RateItem
+
     init {
         setUpLongClick()
         setUpWatcher()
@@ -30,27 +33,24 @@ class RateVH(
 
     private fun setUpWatcher() {
         val watcher = SimpleTextWatcher {
-            val amount = et_amount.value.toFloatOrZero()
-            val state = if (adapterPosition == 0) ItemState.PrimaryItemValueChanged(
-                amount
+            val newAmount = et_value.value.toFloatOrZero() / item.rate
+            val state = if (adapterPosition == 0) ItemState.PrimaryItemAmountChanged(
+                newAmount
             )
-            else ItemState.ValueChanged(
+            else ItemState.AmountChanged(
                 adapterPosition,
-                amount
+                newAmount
             )
-            Timber.d("setUpWatcher $adapterPosition $amount $state")
+            Timber.d("setUpWatcher $adapterPosition $newAmount")
             liveLastHoldItemPosition.value = state
         }
-        et_amount.addTextChangedListener(watcher)
-        watcherMap[et_amount] = watcher
+        et_value.addTextChangedListener(watcher)
+        watcherMap[et_value] = watcher
     }
 
     private fun setUpLongClick() {
         containerView.setOnLongClickListener {
-            val state =
-                ItemState.PrimaryItemChanged(
-                    adapterPosition
-                )
+            val state = ItemState.PrimaryItemChanged(item)
             Timber.d("setUpLongClick $adapterPosition $state")
             liveLastHoldItemPosition.value = state
             true
@@ -59,8 +59,10 @@ class RateVH(
 
     @SuppressLint("SetTextI18n")
     fun onBind(item: RateItem) {
+        this.item = item
         Timber.d("onBind $item")
-        et_amount.setText("" + item.amount)
+        val watcher = watcherMap[et_value]
+        et_value.setTextQuietly("" + item.rate * item.amount, watcher)
     }
 
     companion object {
