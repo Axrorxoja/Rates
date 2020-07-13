@@ -1,12 +1,34 @@
 package com.example.currencylist.data.local
 
-import androidx.room.Dao
-import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import timber.log.Timber
 
 @Dao
-interface RateDao {
+abstract class RateDao {
 
-    @Query("SELECT * FROM RATES")
-    fun loadRates(): Flow<List<RateItem>>
+    @Query("select * from rates order by modifiedTime desc")
+    abstract fun liveRates(): LiveData<List<RateItem>>
+
+    @Query("select * from rates order by modifiedTime desc")
+    abstract fun loadRates(): MutableList<RateItem>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insert(item: RateItem)
+
+    @Query("delete from rates")
+    abstract fun clearTable()
+
+    @Transaction
+    open fun batchUpdate(newAmount: Float, position: Int) {
+        val items = loadRates()
+        if (items.isEmpty())return
+        if (items.size>position)
+            items.removeAt(position)
+        for (item in items) {
+            item.amount = newAmount
+            insert(item)
+            Timber.d("batchUpdate $item")
+        }
+    }
 }
