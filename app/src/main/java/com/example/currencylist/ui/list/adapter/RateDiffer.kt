@@ -1,17 +1,17 @@
 package com.example.currencylist.ui.list.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.currencylist.data.local.Rate
+import com.example.currencylist.data.local.RateItem
 
 
-class RateDiffer : DiffUtil.ItemCallback<Rate>() {
+class RateDiffer : DiffUtil.ItemCallback<RateItem>() {
     override fun areItemsTheSame(
-        oldItem: Rate,
-        newItem: Rate
+        oldItem: RateItem,
+        newItem: RateItem
     ) = oldItem.code == newItem.code
 
     override fun areContentsTheSame(
-        oldItem: Rate,
-        newItem: Rate
+        oldItem: RateItem,
+        newItem: RateItem
     ) = oldItem == newItem
 }

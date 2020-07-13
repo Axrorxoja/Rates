@@ -12,7 +12,7 @@ import com.example.currencylist.R
 import com.example.currencylist.common.simple.SimpleTextWatcher
 import com.example.currencylist.common.toFloatOrZero
 import com.example.currencylist.common.value
-import com.example.currencylist.data.local.Rate
+import com.example.currencylist.data.local.RateItem
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_rate.*
 import timber.log.Timber
@@ -58,7 +58,7 @@ class RateVH(
     }
 
     @SuppressLint("SetTextI18n")
-    fun onBind(item: Rate) {
+    fun onBind(item: RateItem) {
         Timber.d("onBind $item")
         et_amount.setText("" + item.amount)
     }

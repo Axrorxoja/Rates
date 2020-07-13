@@ -1,16 +1,15 @@
 package com.example.currencylist.data.remote
 
 import com.example.currencylist.data.IRateRepository
-import com.example.currencylist.data.local.Rate
-import kotlinx.coroutines.CoroutineScope
+import com.example.currencylist.data.local.RateItem
 
 class RemoteRepository(
-    private val apiService: ApiService,
-    private val scope: CoroutineScope
+    private val apiService: ApiService
 ) : IRateRepository {
 
-    override fun loadRate(base: String): List<Rate> {
-        TODO("Not yet implemented")
+    override suspend fun loadRate(base: String): List<RateItem> {
+//        return apiService.loadRates(base)
+        TODO()
     }
 
 }

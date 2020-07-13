@@ -6,9 +6,9 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ListAdapter
-import com.example.currencylist.data.local.Rate
+import com.example.currencylist.data.local.RateItem
 
-class RateAdapter : ListAdapter<Rate, RateVH>(
+class RateAdapter : ListAdapter<RateItem, RateVH>(
     RateDiffer()
 ) {
 

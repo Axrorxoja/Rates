@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface RateDao {
 
-    @Query("SELECT * FROM RATE")
-    fun loadRates(): Flow<List<Rate>>
+    @Query("SELECT * FROM RATES")
+    fun loadRates(): Flow<List<RateItem>>
 }

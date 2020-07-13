@@ -1,7 +1,6 @@
 package com.example.currencylist
 
-import android.app.Application
-import dagger.android.AndroidInjector
+import com.example.currencylist.di.component.DaggerAppComponent
 import dagger.android.DaggerApplication
 import timber.log.Timber
 
@@ -18,6 +17,5 @@ class App : DaggerApplication() {
         }
     }
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication>? =
-      null
+    override fun applicationInjector() = DaggerAppComponent.factory().create(this)
 }

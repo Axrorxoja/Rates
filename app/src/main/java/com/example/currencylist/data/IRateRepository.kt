@@ -1,9 +1,9 @@
 package com.example.currencylist.data
 
-import com.example.currencylist.data.local.Rate
+import com.example.currencylist.data.local.RateItem
 
 interface IRateRepository {
 
-    fun loadRate(base: String = "EUR"): List<Rate>
+    suspend fun loadRate(base: String = "EUR"): List<RateItem>
 
 }
