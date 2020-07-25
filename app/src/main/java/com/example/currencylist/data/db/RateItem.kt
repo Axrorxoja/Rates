@@ -1,4 +1,4 @@
-package com.example.currencylist.data.local
+package com.example.currencylist.data.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class RateItem(
     @PrimaryKey
     val code: String,
-    val rate: Float,
-    var amount: Float = 1F,
+    val rate: Long,
+    var amount: Int = 1,
     var modifiedTime: Long = 0
 )

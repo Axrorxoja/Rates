@@ -6,7 +6,8 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ListAdapter
-import com.example.currencylist.data.local.RateItem
+import com.example.currencylist.data.db.RateItem
+import timber.log.Timber
 
 class RateAdapter : ListAdapter<RateItem, RateVH>(RateDiffer()) {
 
@@ -28,4 +29,16 @@ class RateAdapter : ListAdapter<RateItem, RateVH>(RateDiffer()) {
         holder: RateVH,
         position: Int
     ) = holder.onBind(getItem(position))
+
+    override fun onBindViewHolder(holder: RateVH, position: Int, payloads: MutableList<Any>) {
+        super.onBindViewHolder(holder, position, payloads)
+        if (payloads.isNotEmpty()) {
+            val firstItem = payloads[0]
+            if (firstItem is Long) {
+                holder.onBind(getItem(position), firstItem)
+            }
+        } else {
+            holder.onBind(getItem(position))
+        }
+    }
 }

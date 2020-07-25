@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.currencylist.R
+import com.example.currencylist.common.Constant.DEFAULT_SCROLL_DELAY
 import com.example.currencylist.common.lazyFast
 import com.example.currencylist.presentation.IRateViewModel
 import com.example.currencylist.presentation.RateViewModel
@@ -40,16 +41,16 @@ class ListFragment : Fragment(R.layout.fragment_first) {
     }
 
     private fun setupList() {
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        rv_rates.layoutManager = layoutManager
         rv_rates.adapter = rateAdapter
-        val lm = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        rv_rates.layoutManager = lm
-        vm.liveRates.observe(viewLifecycleOwner,
-            Observer {
-                Timber.d("vm.liveRates.observe $it")
-                rateAdapter.submitList(it)
-                handler.postDelayed({ lm.scrollToPosition(0) }, 500)
-            })
-
+        vm.liveRates.observe(viewLifecycleOwner, Observer {
+            Timber.d("vm.liveRates.observe $it")
+            rateAdapter.submitList(it)
+            rv_rates.scheduleLayoutAnimation()
+            handler.postDelayed({ layoutManager.scrollToPosition(0) }, DEFAULT_SCROLL_DELAY)
+        })
         rateAdapter
             .liveLastHoldItemPosition
             .observe(
@@ -61,9 +62,8 @@ class ListFragment : Fragment(R.layout.fragment_first) {
     private fun onHoldItemPosition(it: ItemState?) {
         if (it == null) return
         when (it) {
-            is ItemState.PrimaryItemChanged -> vm.setAsPrimaryRate(it.rate)
-            is ItemState.PrimaryItemAmountChanged -> vm.primaryItemAmountChanged(it.newAmount)
-            is ItemState.AmountChanged -> vm.amountChanged(it.newAmount,it.position)
+            is ItemState.PrimaryItemChanged -> vm.setAsPrimary(it.rate)
+            is ItemState.AmountChanged -> vm.amountChanged(it.newAmount)
         }
     }
 }

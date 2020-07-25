@@ -3,8 +3,9 @@ package com.example.currencylist.di.module.app
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.currencylist.common.Constant
-import com.example.currencylist.data.remote.ApiService
+import com.example.currencylist.data.repository.remote.ApiService
 import com.example.currencylist.di.scope.AppScope
+import com.example.currencylist.di.scope.FragmentScope
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -15,7 +16,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 @Module
 class NetModule {
 
-    @AppScope
+    @FragmentScope
     @Provides
     fun provideApiService(context: Context): ApiService {
         val client = OkHttpClient.Builder()

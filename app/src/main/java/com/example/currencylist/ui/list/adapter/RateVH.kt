@@ -3,6 +3,7 @@ package com.example.currencylist.ui.list.adapter
 import android.annotation.SuppressLint
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MotionEvent.ACTION_DOWN
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatEditText
@@ -11,12 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.currencylist.R
 import com.example.currencylist.common.setTextQuietly
 import com.example.currencylist.common.simple.SimpleTextWatcher
-import com.example.currencylist.common.toFloatOrZero
 import com.example.currencylist.common.value
-import com.example.currencylist.data.local.RateItem
+import com.example.currencylist.data.db.RateItem
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_rate.*
 import timber.log.Timber
+import kotlin.math.roundToInt
+
 
 class RateVH(
     override val containerView: View,
@@ -27,20 +29,25 @@ class RateVH(
     private lateinit var item: RateItem
 
     init {
+        Timber.d("init ")
         setUpLongClick()
-        setUpWatcher()
+        setUpTextWatcher()
+        setUpTouchListener()
     }
 
-    private fun setUpWatcher() {
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setUpTouchListener() {
+        et_value.setOnTouchListener { _, event ->
+            if (event.action == ACTION_DOWN) {
+                moveToTop()
+            } else false
+        }
+    }
+
+    private fun setUpTextWatcher() {
         val watcher = SimpleTextWatcher {
-            val newAmount = et_value.value.toFloatOrZero() / item.rate
-            val state = if (adapterPosition == 0) ItemState.PrimaryItemAmountChanged(
-                newAmount
-            )
-            else ItemState.AmountChanged(
-                adapterPosition,
-                newAmount
-            )
+            val newAmount: Int = (et_value.value.toFloatOrNull() ?: 0F / item.rate).roundToInt()
+            val state = ItemState.AmountChanged(newAmount)
             Timber.d("setUpWatcher $adapterPosition $newAmount")
             liveLastHoldItemPosition.value = state
         }
@@ -49,20 +56,41 @@ class RateVH(
     }
 
     private fun setUpLongClick() {
-        containerView.setOnLongClickListener {
-            val state = ItemState.PrimaryItemChanged(item)
-            Timber.d("setUpLongClick $adapterPosition $state")
-            liveLastHoldItemPosition.value = state
-            true
-        }
+        containerView.setOnLongClickListener { moveToTop() }
+    }
+
+    private fun moveToTop(): Boolean {
+        val state = ItemState.PrimaryItemChanged(item)
+        Timber.d("setUpLongClick $adapterPosition $state")
+        liveLastHoldItemPosition.value = state
+        return true
     }
 
     @SuppressLint("SetTextI18n")
     fun onBind(item: RateItem) {
         this.item = item
+        tv_code.text = item.code
         Timber.d("onBind $item")
+        val value = item.rate * item.amount
+        setValue(value)
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun onBind(item: RateItem, value: Long) {
+        Timber.d("onBind payload $item")
+        this.item = item
+        setValue(value)
+    }
+
+    private fun setValue(value: Long) {
         val watcher = watcherMap[et_value]
-        et_value.setTextQuietly("" + item.rate * item.amount, watcher)
+        val number: Number = if (adapterPosition != 0) {
+            value / 100F
+        } else {
+            value
+        }
+        et_value.setTextQuietly("" + number, watcher)
+
     }
 
     companion object {
@@ -71,6 +99,7 @@ class RateVH(
             liveLastHoldItemPosition: MutableLiveData<ItemState>,
             watcherMap: HashMap<AppCompatEditText, TextWatcher>
         ): RateVH {
+            Timber.d("create VH")
             val view =
                 LayoutInflater.from(parent.context).inflate(R.layout.item_rate, parent, false)
             return RateVH(

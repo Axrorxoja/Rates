@@ -1,4 +1,4 @@
-package com.example.currencylist.data.local
+package com.example.currencylist.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

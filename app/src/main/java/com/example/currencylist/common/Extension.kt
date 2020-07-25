@@ -11,8 +11,5 @@ val EditText.value
 fun EditText.setTextQuietly(text: String, watcher: TextWatcher?) {
     removeTextChangedListener(watcher)
     setText(text)
-    if (text.isNotEmpty()) setSelection(text.length)
     addTextChangedListener(watcher)
 }
-
-fun String.toFloatOrZero() = toFloatOrNull() ?: 0F
