@@ -5,23 +5,22 @@
     android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/iv_flag"
+        android:id="@+id/tv_flag"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_margin="16dp"
         android:gravity="center"
-        android:text="🇺🇸"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/iv_flag"
-        android:layout_alignBottom="@id/iv_flag"
-        android:layout_toEndOf="@+id/iv_flag"
+        android:layout_alignTop="@id/tv_flag"
+        android:layout_alignBottom="@id/tv_flag"
+        android:layout_toEndOf="@+id/tv_flag"
         android:gravity="center_vertical"
         android:textColor="@color/primary_color"
         android:textSize="16sp"

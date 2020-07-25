@@ -48,8 +48,7 @@ class ListFragment : Fragment(R.layout.fragment_first) {
         vm.liveRates.observe(viewLifecycleOwner, Observer {
             Timber.d("vm.liveRates.observe $it")
             rateAdapter.submitList(it)
-            rv_rates.scheduleLayoutAnimation()
-            handler.postDelayed({ layoutManager.scrollToPosition(0) }, DEFAULT_SCROLL_DELAY)
+//            handler.postDelayed({ layoutManager.scrollToPosition(0) }, DEFAULT_SCROLL_DELAY)
         })
         rateAdapter
             .liveLastHoldItemPosition
