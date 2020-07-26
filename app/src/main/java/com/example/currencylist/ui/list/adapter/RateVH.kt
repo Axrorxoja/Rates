@@ -7,7 +7,6 @@ import android.view.MotionEvent.ACTION_DOWN
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.asynclayoutinflater.view.AsyncLayoutInflater
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
