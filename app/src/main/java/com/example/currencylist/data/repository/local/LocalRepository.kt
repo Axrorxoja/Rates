@@ -13,7 +13,7 @@ class LocalRepository(
     private val job = SupervisorJob()
     override val coroutineContext = job + Dispatchers.IO
 
-    override val liveRates = dao.liveRates()
+    override val flowRates = dao.liveRates()
 
     override fun batchUpdate(newAmount: Int, position: Int) {
         launch {

@@ -1,14 +1,14 @@
 package com.example.currencylist.data.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 
 @Dao
 abstract class RateDao {
 
     @Query("select * from rates order by modifiedTime desc")
-    abstract fun liveRates(): LiveData<List<RateItem>>
+    abstract fun liveRates(): Flow<List<RateItem>>
 
     @Query("select * from rates order by modifiedTime desc")
     abstract fun loadRates(): MutableList<RateItem>
