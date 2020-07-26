@@ -40,7 +40,7 @@ class RateVH(
     @SuppressLint("ClickableViewAccessibility")
     private fun setUpTouchListener() {
         et_value.setOnTouchListener { _, event ->
-            if (event.action == ACTION_DOWN) {
+            if (event.action == ACTION_DOWN && adapterPosition != 0) {
                 moveToTop()
             } else false
         }

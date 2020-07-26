@@ -9,6 +9,7 @@ import com.example.currencylist.data.repository.remote.IRemoteRepository
 import com.example.currencylist.di.scope.FragmentScope
 import javax.inject.Inject
 
+@Suppress("UNCHECKED_CAST")
 @FragmentScope
 class RateViewModelFactory @Inject constructor(
     private val remoteRepo:IRemoteRepository,

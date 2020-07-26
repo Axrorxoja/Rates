@@ -1,5 +1,6 @@
 package com.example.currencylist.di.module.app
 
+import com.example.currencylist.data.IDispatcher
 import com.example.currencylist.data.db.RateDao
 import com.example.currencylist.data.repository.local.ILocalRepository
 import com.example.currencylist.data.repository.local.LocalRepository
@@ -17,10 +18,14 @@ class RepositoryModule {
     @FragmentScope
     fun provideRemoteRepository(
         apiService: ApiService,
-        localRepo: ILocalRepository
-    ): IRemoteRepository = RemoteRepository(apiService, localRepo)
+        localRepo: ILocalRepository,
+        dispatcher: IDispatcher
+    ): IRemoteRepository = RemoteRepository(apiService, localRepo, dispatcher)
 
     @Provides
     @FragmentScope
-    fun provideLocalRepo(dao: RateDao): ILocalRepository = LocalRepository(dao)
+    fun provideLocalRepo(
+        dao: RateDao,
+        dispatcher: IDispatcher
+    ): ILocalRepository = LocalRepository(dao, dispatcher)
 }

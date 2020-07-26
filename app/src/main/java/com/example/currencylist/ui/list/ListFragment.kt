@@ -40,10 +40,11 @@ class ListFragment : Fragment(R.layout.fragment_first) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupList()
-        observeData()
     }
 
-    private fun observeData() {
+    private fun setupList() {
+        rv_rates.adapter = rateAdapter
+
         lifecycleScope.launch {
             vm.flowRates.collect {
                 Timber.d("vm.flowRates $it")
@@ -60,13 +61,6 @@ class ListFragment : Fragment(R.layout.fragment_first) {
                 viewLifecycleOwner,
                 Observer(this::onHoldItemPosition)
             )
-    }
-
-    private fun setupList() {
-        val layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        rv_rates.layoutManager = layoutManager
-        rv_rates.adapter = rateAdapter
 
     }
 

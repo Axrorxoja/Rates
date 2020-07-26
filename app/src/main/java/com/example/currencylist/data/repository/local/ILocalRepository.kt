@@ -7,7 +7,7 @@ interface ILocalRepository {
 
     val flowRates: Flow<List<RateItem>>
 
-    fun batchUpdate(newAmount: Int, position: Int)
+    fun batchUpdate(newAmount: Int)
 
     fun update(item: RateItem)
 
