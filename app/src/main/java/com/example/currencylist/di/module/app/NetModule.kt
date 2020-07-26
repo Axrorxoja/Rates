@@ -1,10 +1,7 @@
 package com.example.currencylist.di.module.app
 
-import android.content.Context
-import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.currencylist.common.Constant
 import com.example.currencylist.data.repository.remote.ApiService
-import com.example.currencylist.di.scope.AppScope
 import com.example.currencylist.di.scope.FragmentScope
 import dagger.Module
 import dagger.Provides
@@ -18,10 +15,11 @@ class NetModule {
 
     @FragmentScope
     @Provides
-    fun provideApiService(context: Context): ApiService {
+    fun provideApiService(): ApiService {
         val client = OkHttpClient.Builder()
-            .addInterceptor(ChuckerInterceptor(context))
-            .addInterceptor(HttpLoggingInterceptor().also { it.level=HttpLoggingInterceptor.Level.BODY })
+            .addInterceptor(HttpLoggingInterceptor().also {
+                it.level = HttpLoggingInterceptor.Level.BODY
+            })
             .build()
 
         val retrofit = Retrofit.Builder()

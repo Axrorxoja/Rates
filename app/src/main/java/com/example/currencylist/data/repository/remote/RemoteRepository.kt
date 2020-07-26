@@ -1,6 +1,7 @@
 package com.example.currencylist.data.repository.remote
 
 import com.example.currencylist.common.Constant.DEFAULT_CODE
+import com.example.currencylist.data.IDispatcher
 import com.example.currencylist.data.db.RateItem
 import com.example.currencylist.data.models.BaseRate
 import com.example.currencylist.data.repository.local.ILocalRepository
@@ -9,10 +10,11 @@ import timber.log.Timber
 
 class RemoteRepository(
     private val apiService: ApiService,
-    private val localRepo: ILocalRepository
+    private val localRepo: ILocalRepository,
+    dispatcher: IDispatcher
 ) : IRemoteRepository, CoroutineScope {
     private val job = SupervisorJob()
-    override val coroutineContext = job + Dispatchers.IO
+    override val coroutineContext = job + dispatcher.io
     override var code = DEFAULT_CODE
 
     override fun launch() {

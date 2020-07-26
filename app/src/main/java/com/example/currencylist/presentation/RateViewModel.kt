@@ -24,7 +24,7 @@ class RateViewModel(
     override fun setAsPrimary(rate: RateItem) = remoteRepo.setAsPrimary(rate)
 
     override fun amountChanged(newAmount: Int) {
-        localRepo.batchUpdate(newAmount, 0)
+        localRepo.batchUpdate(newAmount)
         Timber.d("amountChanged  $newAmount")
     }
 

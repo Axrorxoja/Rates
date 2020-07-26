@@ -8,7 +8,7 @@ import timber.log.Timber
 abstract class RateDao {
 
     @Query("select * from rates order by modifiedTime desc")
-    abstract fun liveRates(): Flow<List<RateItem>>
+    abstract fun flowRates(): Flow<List<RateItem>>
 
     @Query("select * from rates order by modifiedTime desc")
     abstract fun loadRates(): MutableList<RateItem>
@@ -19,15 +19,13 @@ abstract class RateDao {
     @Update
     abstract fun update(item: RateItem)
 
-    @Query("delete from rates")
-    abstract fun clearTable()
-
     @Transaction
-    open fun batchUpdate(newAmount: Int, position: Int) {
+    open fun batchUpdate(newAmount: Int) {
         val items = loadRates()
         if (items.isEmpty()) return
-        if (items.size > position)
-            items.removeAt(position)
+        //for not update focused input
+        items.removeAt(0)
+
         for (item in items) {
             item.amount = newAmount
             update(item)
