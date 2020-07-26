@@ -15,12 +15,11 @@ class RemoteRepository(
 ) : IRemoteRepository, CoroutineScope {
     private val job = SupervisorJob()
     override val coroutineContext = job + dispatcher.io
-    override var code = DEFAULT_CODE
+    private var code = DEFAULT_CODE
 
     override fun launch() {
         launch {
             while (isActive) {
-                Timber.d("launch $isActive")
                 delay(1000)
                 val response = apiService.loadRates(code)
                 parseResponse(response)

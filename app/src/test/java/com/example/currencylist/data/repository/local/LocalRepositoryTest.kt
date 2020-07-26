@@ -4,9 +4,7 @@ import com.example.currencylist.data.TestDispatcher
 import com.example.currencylist.data.db.RateDao
 import com.example.currencylist.data.db.RateItem
 import kotlinx.coroutines.flow.flow
-import org.junit.After
 import org.junit.Assert.assertTrue
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -19,14 +17,6 @@ class LocalRepositoryTest {
     private val dao = mock(RateDao::class.java)
     private val testDispatcher = TestDispatcher()
     private val mockLocalRepo: ILocalRepository = LocalRepository(dao, testDispatcher)
-
-    @Before
-    fun setUp() {
-    }
-
-    @After
-    fun tearDown() {
-    }
 
     @Test
     fun getFlowRates() {
@@ -54,11 +44,7 @@ class LocalRepositoryTest {
     fun insertOrReplace() {
         val testCode = "a"
         val testRate = 123L
-        mockLocalRepo.insertOrReplace(testCode,testRate)
-        verify(dao, atLeastOnce()).insertOrReplace(testCode,testRate)
-    }
-
-    @Test
-    fun cancel() {
+        mockLocalRepo.insertOrReplace(testCode, testRate)
+        verify(dao, atLeastOnce()).insertOrReplace(testCode, testRate)
     }
 }
