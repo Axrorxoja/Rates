@@ -1,43 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="72dp">
+    android:layout_height="wrap_content">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_flag"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        android:src="@drawable/usd_flag" />
+        android:elevation="4dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:civ_border_color="#E4DEDE"
+        app:civ_border_width="2dp" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp"
+        android:layout_alignTop="@id/iv_flag"
+        android:layout_alignBottom="@id/iv_flag"
         android:layout_toEndOf="@+id/iv_flag"
+        android:gravity="center_vertical"
         android:textColor="@color/primary_color"
         android:textSize="16sp"
         android:textStyle="normal"
         tools:text="USD" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_code"
-        android:layout_marginBottom="12dp"
-        android:layout_toEndOf="@+id/iv_flag"
-        android:textColor="@color/subtitle_color"
-        android:textSize="14sp"
-        android:textStyle="normal"
-        tools:text="US Dollar" />
-
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_value"
@@ -45,7 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:gravity="end"
         android:inputType="numberDecimal"

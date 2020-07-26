@@ -1,6 +1,8 @@
 package com.example.currencylist.di.module.activity
 
-import com.example.currencylist.di.module.fragment.ListFragmentModule
+import com.example.currencylist.di.module.app.DatabaseModule
+import com.example.currencylist.di.module.app.NetModule
+import com.example.currencylist.di.module.app.RepositoryModule
 import com.example.currencylist.di.scope.FragmentScope
 import com.example.currencylist.ui.list.ListFragment
 import dagger.Module
@@ -10,7 +12,13 @@ import dagger.android.ContributesAndroidInjector
 interface FragmentModule {
 
     @FragmentScope
-    @ContributesAndroidInjector(modules = [ListFragmentModule::class])
+    @ContributesAndroidInjector(
+        modules = [
+            NetModule::class,
+            DatabaseModule::class,
+            RepositoryModule::class
+        ]
+    )
     fun listFragment(): ListFragment
 
 }

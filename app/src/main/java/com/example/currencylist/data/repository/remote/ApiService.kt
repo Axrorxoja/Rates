@@ -1,4 +1,4 @@
-package com.example.currencylist.data.remote
+package com.example.currencylist.data.repository.remote
 
 import com.example.currencylist.data.models.BaseRate
 import retrofit2.http.GET
