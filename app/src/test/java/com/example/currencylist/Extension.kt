@@ -1,7 +1,6 @@
 package com.example.currencylist
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
+import androidx.lifecycle.*
 import timber.log.Timber
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -25,4 +24,17 @@ fun <T> LiveData<T>.getOrAwaitValue(time: Long = 2, timeUnit: TimeUnit = TimeUni
 
     @Suppress("UNCHECKED_CAST")
     return data as T
+}
+
+fun ViewModel.callOnCleared() {
+    val viewModelStore = ViewModelStore()
+    val viewModelProvider = ViewModelProvider(viewModelStore, object : ViewModelProvider.Factory {
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T = this@callOnCleared as T
+    })
+    viewModelProvider.get(this@callOnCleared::class.java)
+
+    //Run 2
+    viewModelStore.clear()//To call clear() in ViewModel
 }
