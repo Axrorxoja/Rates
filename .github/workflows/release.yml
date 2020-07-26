@@ -34,11 +34,11 @@ jobs:
       with:
         java-version: 1.8
         
-    - name: Android Emulator Runner
-      uses: ReactiveCircus/android-emulator-runner@v2.11.0
-      with:
+#     - name: Android Emulator Runner
+#       uses: ReactiveCircus/android-emulator-runner@v2.11.0
+#       with:
     # API level of the platform and system image - e.g. 23 for Android Marshmallow, 29 for Android 10
-       api-level: 28
+#        api-level: 28
     # target of the system image - default or google_apis
 #     target: # optional, default is default
     # CPU architecture of the system image - x86 or x86_64
@@ -60,7 +60,7 @@ jobs:
     # version of CMake to install - e.g. 3.10.2.4988404
 #     cmake: # optional
     # custom script to run - e.g. `./gradlew connectedCheck`
-       script: ./gradlew connectedCheck --stacktrace
+#        script: ./gradlew connectedCheck --stacktrace
     
         
     # Runs test
@@ -69,32 +69,19 @@ jobs:
       
     # Create Build
     - name: Build Project
-      run: ./gradlew clean bundleRelease assembleRelease
+      run: ./gradlew clean assembleRelease
 
     - name: Get apk name
       id: apk-name
       run: |
           APK_NAME=$(echo app/build/outputs/apk/release/*.apk)
-          echo "::set-output name=APK_NAME::${APK_NAME}"
-
-    - name: Get bundle name
-      id: bundle-name
-      run: |
-          BUNDLE_NAME=$(echo app/build/outputs/bundle/release/*.aab)
-          echo "::set-output name=BUNDLE_NAME::${BUNDLE_NAME}"        
+          echo "::set-output name=APK_NAME::${APK_NAME}"     
             
     - name: Upload APK
       uses: actions/upload-artifact@v1
       with:
         name: release-app
         path: ${{ steps.apk-name.outputs.APK_NAME }}
-
-    - name: Upload App bundle
-      uses: actions/upload-artifact@v1
-      with:
-        name: release-bundle
-        path: ${{ steps.bundle-name.outputs.BUNDLE_NAME }}
-
 
     - name: Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
