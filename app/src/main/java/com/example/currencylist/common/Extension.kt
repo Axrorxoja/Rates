@@ -2,6 +2,7 @@ package com.example.currencylist.common
 
 import android.text.TextWatcher
 import android.widget.EditText
+import com.example.currencylist.data.db.RateItem
 
 fun <T> lazyFast(initializer: () -> T): Lazy<T> = lazy(LazyThreadSafetyMode.NONE, initializer)
 
@@ -13,3 +14,5 @@ fun EditText.setTextQuietly(text: String, watcher: TextWatcher?) {
     setText(text)
     addTextChangedListener(watcher)
 }
+
+fun RateItem.loadFlagByCode() = "https://www.countryflags.io/${code.substring(0..1)}/flat/64.png"

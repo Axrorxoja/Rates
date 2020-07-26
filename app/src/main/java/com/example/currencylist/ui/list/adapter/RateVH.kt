@@ -9,12 +9,13 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.currencylist.R
+import com.example.currencylist.common.loadFlagByCode
 import com.example.currencylist.common.setTextQuietly
 import com.example.currencylist.common.simple.SimpleTextWatcher
 import com.example.currencylist.common.value
 import com.example.currencylist.data.db.RateItem
-import com.example.currencylist.data.repository.CountryDataProvider
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_rate.*
 import timber.log.Timber
@@ -71,7 +72,11 @@ class RateVH(
     fun onBind(item: RateItem) {
         this.item = item
         tv_code.text = item.code
-        tv_flag.text = CountryDataProvider.flagMap[item.code]
+
+        Glide.with(containerView)
+            .load(item.loadFlagByCode())
+            .into(iv_flag)
+
         Timber.d("onBind $item")
         val value = item.rate * item.amount
         setValue(value)

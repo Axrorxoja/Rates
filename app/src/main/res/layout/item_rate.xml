@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_flag"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_flag"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_margin="16dp"
+        android:elevation="4dp"
         android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:civ_border_color="#E4DEDE"
+        app:civ_border_width="2dp" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/tv_flag"
-        android:layout_alignBottom="@id/tv_flag"
-        android:layout_toEndOf="@+id/tv_flag"
+        android:layout_alignTop="@id/iv_flag"
+        android:layout_alignBottom="@id/iv_flag"
+        android:layout_toEndOf="@+id/iv_flag"
         android:gravity="center_vertical"
         android:textColor="@color/primary_color"
         android:textSize="16sp"
