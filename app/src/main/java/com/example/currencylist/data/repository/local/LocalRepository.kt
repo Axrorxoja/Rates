@@ -5,6 +5,7 @@ import com.example.currencylist.data.db.RateDao
 import com.example.currencylist.data.db.RateItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class LocalRepository(
@@ -14,7 +15,8 @@ class LocalRepository(
     private val job = SupervisorJob()
     override val coroutineContext = job + dispatcher.io
 
-    override val flowRates = dao.flowRates()
+    override val flowRates: Flow<List<RateItem>>
+        get() = dao.flowRates()
 
     override fun batchUpdate(newAmount: Int) {
         launch {
